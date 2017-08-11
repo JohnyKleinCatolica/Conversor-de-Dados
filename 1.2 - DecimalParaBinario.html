@@ -40,12 +40,23 @@
         binario = "";
     }
     function escreveHexadecimal(){
-        var hexadecimal = "", letra = 'a', numero = 0, entrada = document.getElementById("valueDecimal").value,
-            divisao = entrada/16, resto = entrada - (parseInt(divisao) * 16);
+        var valor = document.getElementById("valueDecimal").value, hexadecimal = "", divisao = 0, entradaFull;
+        conversao(valor);
         
-        hexadecimal += resto;
+        function conversao(entrada){
+            divisao = entrada/16, entradaFull = entrada;
+            var letra = 'a', numero = 0, resto = entrada - (parseInt(divisao) * 16);
+           
+            if(entrada>=16){
+                hexadecimal += resto;
+                conversao(parseInt(divisao));
+            }
+        }
+        hexadecimal += entradaFull;
         
-
+        
+        
+        alert(hexadecimal);
     }
      
      
