@@ -45,12 +45,12 @@
         
         function conversao(entrada){
             divisao = entrada/16, entradaFull = entrada;
-            var letra = 'a', numero = 0, resto = entrada - (parseInt(divisao) * 16);
-           
+            var letra = 'a', numero = 0, resto = entrada - (parseInt(divisao) * 16), conversor;
+           ///hexa = 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20
             if(entrada>=16){
-                hexadecimal += resto;
-                conversao(parseInt(divisao));
-                
+                //hexadecimal += resto;
+                resto/10;
+                //conversao(parseInt(divisao));  
             }
         }
         hexadecimal += entradaFull;
