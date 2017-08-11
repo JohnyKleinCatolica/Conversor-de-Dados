@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>Decimal para Binário</title>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+<body>
+
+    <center>    
+        <h1>Conversor</h1>
+        <input type="text" id="valueDecimal" placeHolder="Valor"> 
+        <input type="submit" value="Enviar" onClick="escreveHexadecimal();">
+    </center>
+    
+</body>
+</html>
+
+ <script>
+    function escreveBinario(){ 
+        var numero = document.getElementById("valueDecimal").value, binario = "";
+        if (numero==0){
+            binario = "0";
+        } else {
+            conversao(numero);
+        }
+
+        function conversao(entrada){
+            var divisao = entrada/2, divisaoInt = Math.trunc(divisao), divisivel = divisao-divisaoInt; 
+
+            if(entrada>0) {
+                if(divisivel!=0){
+                    binario += "1";
+                } else {
+                    binario += "0";
+                }
+                conversao(divisaoInt);
+            }
+        }
+        
+        alert(numero + " em Binário: " + binario.split('').reverse().join(''));
+        binario = "";
+    }
+    function escreveHexadecimal(){
+        var hexadecimal = "", letra = 'a', numero = 0, entrada = document.getElementById("valueDecimal").value,
+            divisao = entrada/16, resto = entrada - (parseInt(divisao) * 16);
+        
+        hexadecimal += resto;
+        
+
+    }
+     
+     
+ </script>
