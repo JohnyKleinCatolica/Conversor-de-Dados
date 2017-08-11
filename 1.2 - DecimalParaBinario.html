@@ -53,7 +53,7 @@
            
             if(entrada>=16){
                 
-                while(achou){
+                while(!achou){
                     if(resto>contNum){
                         for(i = contNum+1; i<=6; i++){
                             if(i == resto){
@@ -70,10 +70,11 @@
                     
                 }
 
+                hexadecimal += resto;
+                conversao(parseInt(divisao)); 
             }
 
-                hexadecimal += resto;
-                conversao(parseInt(divisao));  
+ 
             }
         
         hexadecimal += entradaFull;
