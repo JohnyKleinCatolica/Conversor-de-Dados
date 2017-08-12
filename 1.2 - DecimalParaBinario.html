@@ -42,42 +42,51 @@
      
     function escreveHexadecimal(){
 
-        var valor = document.getElementById("valueDecimal").value, hexadecimal = "", divisao = 0, entradaFull, 
-            contNum = 9, contChar = 'a', achou = 0, tabelaHexa = [1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+        var valor = document.getElementById("valueDecimal").value, hexadecimal = "", divisao = 0, entradaFull, resto, 
+            contNum = 9, achou = 0, vetChar = ['a','b','c','d','e','f'], contChar = 0;
          ///hexa = 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20   
         conversao(valor);
         
         function conversao(entrada){
-            divisao = entrada/16, entradaFull = entrada;
-            var resto = entrada - (parseInt(divisao) * 16), i;
+            divisao = entrada/16, //entradaFull = entrada;
+            resto = entrada - (parseInt(divisao) * 16);
            
-            if(entrada>=16){
-                
+            //for (var i=0; i<=10000000; i++){
+                if(entrada>9){
+                    conversaoComplexa(resto);
+                    achou = 0;
+                    entradaFull = entrada;
+                    conversao(parseInt(divisao)); 
+                }
+           //}    
+        }
+        
+        function conversaoComplexa(valor){
                 while(!achou){
-                    if(resto>contNum){
-                        for(i = contNum+1; i<=6; i++){
-                            if(i == resto){
-                                hexadecimal += contChar;
+                    if(valor>contNum){
+                        for(var i = contNum+1; i<=16; i++){
+                            if(i == valor){
+                                hexadecimal += vetChar[contChar];
                                 achou = 1;
+                                i = 16;
                             }
                             contChar++;
                         }
-                        contChar = 'a';
+                        contChar = 0;
                     } else {
-                        hexadecimal += resto;
+                        hexadecimal += valor;
                         achou = 1;
                     }
                     
-                }
+                }            
+        }
 
-                hexadecimal += resto;
-                conversao(parseInt(divisao)); 
-            }
-
- 
-            }
-        
-        hexadecimal += entradaFull;
+        //Ultimo valor divisao
+        if (entradaFull>9){
+            conversaoComplexa(entradaFull);
+        } else {
+            hexadecimal += entradaFull; 
+        }
 
         alert(hexadecimal.split('').reverse().join(''));
         //alert(tabelaHexa[1]);    
