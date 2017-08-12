@@ -7,16 +7,42 @@
 
     <center>    
         <h1>Conversor</h1>
-        <input type="text" id="valueDecimal" placeHolder="Valor"> 
-        <input type="submit" value="Enviar" onClick="escreveHexadecimal();">
+
+        Tipo da Entrada: 
+        <select>
+            <option value="decimal">Decimal</option>
+            <option value="binario">Binário</option>
+            <option value="hexadecimal">Hexadecimal</option>            
+            <option value="octal">Octal</option>   
+        </select>
+
+        <input type="text" id="valorEntrada" placeHolder="Valor de entrada"> 
+        </br></br>
+        <input type="submit" value="Enviar" onClick="escreveConversao();">
+        
+        <br/><br/>
+        
+        Tipo da Saída: 
+        <select>
+                <option value="decimal">Decimal</option>
+                <option value="binario">Binário</option>
+                <option value="hexadecimal">Hexadecimal</option>            
+                <option value="octal">Octal</option>   
+            </select>
+        <input type="text" id="resultado" placeHolder="Resultado"> 
     </center>
     
 </body>
 </html>
 
  <script>
-    function escreveBinario(){ 
-        var numero = document.getElementById("valueDecimal").value, binario = "";
+     function escreveConversao(){
+         
+         document.getElementById("resultado").value = retornaBinario();
+     }
+
+    function retornaBinario(){ 
+        var numero = document.getElementById("valorEntrada").value, binario = "";
         if (numero==0){
             binario = "0";
         } else {
@@ -35,14 +61,14 @@
                 conversao(divisaoInt);
             }
         }
-        
-        alert(numero + " em Binário: " + binario.split('').reverse().join(''));
-        binario = "";
+
+        return  binario.split('').reverse().join('');
+        //alert(numero + " em Binário: " + binario.split('').reverse().join(''));
     }
      
-    function escreveHexadecimal(){
+    function retornaHexadecimal(){
 
-        var valor = document.getElementById("valueDecimal").value, hexadecimal = "", divisao = 0, entradaFull, resto, 
+        var valor = document.getElementById("valorEntrada").value, hexadecimal = "", divisao = 0, entradaFull, resto, 
             contNum = 9, achou = 0, vetChar = ['a','b','c','d','e','f'], contChar = 0;
          ///hexa = 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20   
         conversao(valor);
@@ -90,6 +116,10 @@
 
         alert(hexadecimal.split('').reverse().join(''));
         //alert(tabelaHexa[1]);    
+    }
+
+    function retornaOctal(){
+
     }
      
  </script>
