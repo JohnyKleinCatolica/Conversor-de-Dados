@@ -84,13 +84,12 @@
         }
 
         return  binario.split('').reverse().join('');
-        //alert(numero + " em Binário: " + binario.split('').reverse().join(''));
     }
      
     function decimalParaHexadecimal(){
 
         var valor = document.getElementById("valorEntrada").value, hexadecimal = "", divisao = 0, entradaFull, resto, 
-            incioInterv = 10, fimInterv = 15, achou = 0, vetChar = ['a','b','c','d','e','f'], contChar = 0;
+            incioInterv = 9, fimInterv = 15, vetChar = ['a','b','c','d','e','f'], contChar = 0, c;
          ///hexa = 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20   
         conversao(valor);
         
@@ -98,7 +97,7 @@
             divisao = entrada/16, //entradaFull = entrada;
             resto = entrada - (parseInt(divisao) * 16);
            
-            if(entrada>=incioInterv && entrada<=fimInterv){
+            if(entrada>incioInterv && entrada<=fimInterv){
                 conversaoLetras(resto);
                 achou = 0;
                 entradaFull = entrada;
@@ -109,43 +108,35 @@
         }
         
         function conversaoLetras(valor){
-                while(!achou){
-                    if(valor>=incioInterv){
-                        for(var i = incioInterv; i<=fimInterv; i++){ //Ver lógica contNum
-                            if(i == valor){
-                                hexadecimal += vetChar[contChar];
-                                achou = 1;
-                                i = fimInterv + 1;
-                                //incioInterv 
-                            }
-                            contChar++;
-                        }
-                        contChar = 0;
-                    } else {    
-                        hexadecimal += valor;
-                        achou = 1;
-                    }
-                    
-                }            
+            for(c = incioInterv; c<=fimInterv; c++){
+                if(c == valor){
+                    hexadecimal += vetChar[contChar];
+                    c = fimInterv + 1;
+                }
+                contChar++;
+            }
+            contChar = 0;                    
         }
         
         function conversaoNumeros(valor){
-            if(valor<=incioInterv){
-                for(var i=0; i<=valor; i++){
-                    if(i==valor){
-                        hexadecimal += valor;
-                    } 
+            if(valor != 0){            
+                if(valor<=incioInterv){
+                    for(var i=0; i<=valor; i++){
+                        if(i==valor){
+                            hexadecimal += valor;
+                        } 
+                    }
+                } else if(valor>incioInterv && valor<=fimInterv){
+                    for(var i=incioInterv; i<=fimInterv; i++){
+                        if(i==valor){
+                            hexadecimal += valor + i;
+                        } 
+                    }                
+                } else {
+                    incioInterv += 6;
+                    fimInterv += 10;
+                    conversao(valor);
                 }
-            } else if(valor>incioInterv && valor<=fimInterv){
-                for(var i=incioInterv; i<=fimInterv; i++){
-                    if(i==valor){
-                        hexadecimal += valor + i;
-                    } 
-                }                
-            } else {
-                incioInterv += 6;
-                fimInterv += 6;
-                conversao(valor);
             }
         }
 
