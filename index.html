@@ -9,7 +9,7 @@
         <h1>Conversor</h1>
 
         Tipo da Entrada: 
-        <select>
+        <select id="tipoEntrada">
             <option value="decimal">Decimal</option>
             <option value="binario">Binário</option>
             <option value="hexadecimal">Hexadecimal</option>            
@@ -17,13 +17,13 @@
         </select>
 
         <input type="text" id="valorEntrada" placeHolder="Valor de entrada"> 
-        </br></br>
-        <input type="submit" value="Enviar" onClick="escreveConversao();">
+        <br/><br/>
+        <input type="submit" value="Enviar" onClick="console.log(octalParaDecimal());">
         
         <br/><br/>
         
         Tipo da Saída: 
-        <select>
+        <select id="tipoSaida">
                 <option value="decimal">Decimal</option>
                 <option value="binario">Binário</option>
                 <option value="hexadecimal">Hexadecimal</option>            
@@ -37,11 +37,34 @@
 
  <script>
      function escreveConversao(){
+         var entrada = document.getElementById("tipoEntrada");
+         var indice = entrada.options[entrada.selectedIndex].text;
          
-         document.getElementById("resultado").value = retornaBinario();
+         if (indice=="Binário"){
+             
+         } else if (indice=="Hexadecimal"){
+             
+         } else if (indice=="Octal"){
+             
+         }
+         
+         var saida = document.getElementById("tipoSaida");
+         indice = saida.options[saida.selectedIndex].text;         
+         
+         if(indice=="Decimal"){
+             document.getElementById("resultado").value = document.getElementById("valorEntrada").value;
+         } else if (indice=="Binário"){
+             document.getElementById("resultado").value = decimalParaBinario();
+         } else if (indice=="Hexadecimal"){
+             document.getElementById("resultado").value = "Erro"; //decimalParaHexadecimal();
+         } else if (indice=="Octal"){ 
+             document.getElementById("resultado").value = decimalParaOctal();
+         } else {
+             document.getElementById("resultado").value = "Erro";
+         }         
      }
 
-    function retornaBinario(){ 
+    function decimalParaBinario(){ 
         var numero = document.getElementById("valorEntrada").value, binario = "";
         if (numero==0){
             binario = "0";
@@ -66,7 +89,7 @@
         //alert(numero + " em Binário: " + binario.split('').reverse().join(''));
     }
      
-    function retornaHexadecimal(){
+    function decimalParaHexadecimal(){
 
         var valor = document.getElementById("valorEntrada").value, hexadecimal = "", divisao = 0, entradaFull, resto, 
             contNum = 9, achou = 0, vetChar = ['a','b','c','d','e','f'], contChar = 0;
@@ -118,8 +141,42 @@
         //alert(tabelaHexa[1]);    
     }
 
-    function retornaOctal(){
-
+    function decimalParaOctal(){
+        var valor = document.getElementById("valorEntrada").value, octal = "", divisao = 0, resto;
+        conversaoOctal(valor);
+        
+        function conversaoOctal(entrada){
+            divisao = entrada/8, //entradaFull = entrada;
+            resto = entrada - (parseInt(divisao) * 8);
+           
+               if(entrada>0){
+                   octal += resto;
+                   entradaFull = entrada; //Pega último
+                   conversaoOctal(parseInt(divisao));
+                }
+        }
+        return octal.split('').reverse().join('');
     }
+     
+    function binarioParaDecimal(){
+        var binario = document.getElementById("valorEntrada").value, numeroDecimal = 0;
+        
+        for(var i=0; i<binario.length; i++){
+            if (binario.charAt(i) == "1"){
+                numeroDecimal += Math.pow(2, (binario.length-1)-i);
+            }
+        }
+        return numeroDecimal;
+    } 
+     
+    function octalParaDecimal(){
+        var octal = document.getElementById("valorEntrada").value, numeroDecimal = 0;
+        
+        for(var i=0; i<octal.length; i++){
+            numeroDecimal += octal.charAt(i) * Math.pow(8,(octal.length-1)-i);
+        }
+        return numeroDecimal;        
+    } 
+     
      
  </script>
