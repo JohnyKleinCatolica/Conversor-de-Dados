@@ -108,12 +108,17 @@
         }
         
         function conversaoLetras(valor){
+            var contLetra = 0;
             for(c = incioInterv; c<=fimInterv; c++){
                 if(c == valor){
                     hexadecimal += vetChar[contChar];
                     c = fimInterv + 1;
                 }
                 contChar++;
+                if (contChar>5){
+                    
+                    contChar = 0;
+                }
             }
             contChar = 0;                    
         }
