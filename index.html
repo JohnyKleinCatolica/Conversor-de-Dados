@@ -89,17 +89,45 @@
     function decimalParaHexadecimal(){
 
         var valor = document.getElementById("valorEntrada").value, hexadecimal = "", divisao = 0, entradaFull, resto, 
-            incioInterv = 9, fimInterv = 15, vetChar = ['a','b','c','d','e','f'], contChar = 0, c;
-         ///hexa = 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20   
+            inicioIntervN = 0, fimIntervN = 10, vetChar = ['a','b','c','d','e','f'], contChar = 0, contNum = 0;
+         ///hexa = 1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20   
         conversao(valor);
-        
-        function conversao(entrada){
+
+       function conversao(entrada){
+           contNum = entrada;
             divisao = entrada/16, //entradaFull = entrada;
             resto = entrada - (parseInt(divisao) * 16);
-           
-            if(entrada>incioInterv && entrada<=fimInterv){
-                conversaoLetras(resto);
-                achou = 0;
+
+            if(entrada>=inicioIntervN && entrada<fimIntervN){ //Decimal
+                for(var i=inicioIntervN; i<fimIntervN; i++){
+                    if(i == valor){
+                        hexadecimal += i;
+                        i += fimIntervN;
+                    }
+                }
+            } else  if(valor>=fimIntervN && valor<fimIntervN+6){ // Letras
+                var j = 0;
+                for(var i=fimIntervN; i<=(fimIntervN+6); i++){
+                    if(valor==i){
+                        hexadecimal += "" + vetChar[j];
+                        i += fimIntervN+7;
+                    }
+                    j++;
+                }
+            } else {
+                inicioIntervN += 16;
+                fimIntervN += 16;
+                contNum++;
+                conversao(entrada);
+            }
+               
+    }
+    return hexadecimal.split('').reverse().join('');
+}    
+         
+         /*   
+            if(!entrada>incioIntervL && !entrada<=fimIntervL){ //Dentro desse intervalo pega decimal
+                conversaoLetras(entrada);
                 entradaFull = entrada;
                 conversao(parseInt(divisao)); 
             }  else {
@@ -109,10 +137,10 @@
         
         function conversaoLetras(valor){
             var contLetra = 0;
-            for(c = incioInterv; c<=fimInterv; c++){
+            for(c = incioIntervL; c<=fimIntervL; c++){
                 if(c == valor){
                     hexadecimal += vetChar[contChar];
-                    c = fimInterv + 1;
+                    c = fimIntervL + 1;
                 }
                 contChar++;
                 if (contChar>5){
@@ -125,35 +153,33 @@
         
         function conversaoNumeros(valor){
             if(valor != 0){            
-                if(valor<=incioInterv){
-                    for(var i=0; i<=valor; i++){
+                if(valor<=incioIntervL){
+                    for(var i=inicioIntervN; i<=fimIntervN; i++){
                         if(i==valor){
-                            hexadecimal += valor;
-                        } 
+                            hexadecimal += i;
+                            i += fimIntervN;
+                        } else {
+                            inicioIntervN += 1;
+                            fimIntervN += 10;
+                        }
                     }
-                } else if(valor>incioInterv && valor<=fimInterv){
-                    for(var i=incioInterv; i<=fimInterv; i++){
-                        if(i==valor){
-                            hexadecimal += valor + i;
-                        } 
-                    }                
-                } else {
-                    incioInterv += 6;
-                    fimInterv += 10;
+                }  else {
+                    incioIntervL += 6;
+                    fimIntervL += 10;
                     conversao(valor);
                 }
             }
         }
 
         //Ultimo valor divisao
-        /*if (entradaFull>=16){
+        if (entradaFull>=16){
             conversaoLetras(entradaFull);
         } else {
             hexadecimal += entradaFull; 
-        } */
+        }
 
         return hexadecimal.split('').reverse().join('');   
-    }
+    }*/
 
     function decimalParaOctal(){
         var valor = document.getElementById("valorEntrada").value, octal = "", divisao = 0, resto;
