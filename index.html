@@ -96,37 +96,39 @@
        function conversao(entrada){
             divisao = entrada/16, //entradaFull = entrada;
             resto = entrada - (parseInt(divisao) * 16);
-
-            if(entrada>=inicioIntervN && entrada<fimIntervN){ //Decimal
-                for(var i=inicioIntervN; i<fimIntervN; i++){
-                    if(i == valor){
-                        if(valor>9){
-                            hexadecimal += (i - intervaloChar);
-                        } else {
-                            hexadecimal += i;
+           
+           if (entrada>0){
+                if(entrada>=inicioIntervN && entrada<fimIntervN){ //Decimal
+                    for(var i=inicioIntervN; i<fimIntervN; i++){
+                        if(i == valor){
+                            if(valor>9){
+                                hexadecimal += (i - intervaloChar);
+                            } else {
+                                hexadecimal += i;
+                            }
+                            i += fimIntervN;
                         }
-                        i += fimIntervN;
                     }
-                }
-            } else  if(valor>=fimIntervN && valor<fimIntervN+6){ // Letras
-                var j = 0;
-                for(var i=fimIntervN; i<=(fimIntervN+6); i++){
-                    if(valor==i){
-                        if (contChar>0){
-                            hexadecimal += contChar;
+                } else  if(valor>=fimIntervN && valor<fimIntervN+6){ // Letras
+                    var j = 0;
+                    for(var i=fimIntervN; i<=(fimIntervN+6); i++){
+                        if(valor==i){
+                            if (contChar>0){
+                                hexadecimal += contChar;
+                            }
+                            hexadecimal += "" + vetChar[j];
+                            i += fimIntervN+7;
                         }
-                        hexadecimal += "" + vetChar[j];
-                        i += fimIntervN+7;
+                        j++;
                     }
-                    j++;
+                } else {
+                    intervaloChar += 6;
+                    contChar += 1;
+                    inicioIntervN += 16;
+                    fimIntervN += 16;
+                    conversao(parseInt(divisao));
                 }
-            } else {
-                intervaloChar += 6;
-                contChar += 1;
-                inicioIntervN += 16;
-                fimIntervN += 16;
-                conversao(entrada);
-            }
+            }   
                
     }
     return hexadecimal;//.split('').reverse().join('');
