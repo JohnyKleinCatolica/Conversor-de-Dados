@@ -38,34 +38,56 @@
  <script>
      function escreveConversao(){
          var entrada = document.getElementById("tipoEntrada").value, saida = document.getElementById("tipoSaida").value;
-         var decimal;
+         var input = document.getElementById("valorEntrada").value;
          
          if (entrada=="decimal"){
              if(saida=="binario"){
-                 document.getElementById("resultado").value = decimalParaBinario();
+                 document.getElementById("resultado").value = decimalParaBinario(input);
              } else if(saida=="hexadecimal"){
-                 document.getElementById("resultado").value = decimalParaHexadecimal();
+                 document.getElementById("resultado").value = decimalParaHexadecimal(input);
              } else if(saida=="octal"){
-                 document.getElementById("resultado").value = decimalParaOctal();
+                 document.getElementById("resultado").value = decimalParaOctal(input);
              } else {
                  document.getElementById("resultado").value = document.getElementById("valorEntrada").value;
              } 
-         } /*else if(entrada=="binario"){
-             if(saida=="decimal"){
-                 document.getElementById("resultado").value = binarioParaDecimal();
+         } else if (entrada=="binario"){
+            if(saida=="decimal"){
+                 document.getElementById("resultado").value = binarioParaDecimal(input);
              } else if(saida=="hexadecimal"){
-                 entrada =  binarioParaDecimal();
-                 document.getElementById("resultado").value = binarioParaDecimal();
+                 document.getElementById("resultado").value = binarioParaHexadecimal(input);
              } else if(saida=="octal"){
-                 document.getElementById("resultado").value = decimalParaOctal();
-             } else {
+                 document.getElementById("resultado").value = binarioParaOctal(input);
+             } 
+             else {
                  document.getElementById("resultado").value = document.getElementById("valorEntrada").value;
-             }   
-         }*/
+             }          
+        } else if (entrada=="hexadecimal"){
+           if(saida=="decimal"){
+                document.getElementById("resultado").value = hexadecimalParaDecimal(input);
+            } else if(saida=="binario"){
+                document.getElementById("resultado").value = hexadecimalParaBinario(input);
+            } else if(saida=="octal"){
+                document.getElementById("resultado").value = hexadecimalParaOctal(input);
+            } 
+            else {
+                document.getElementById("resultado").value = document.getElementById("valorEntrada").value;
+            }          
+        } else if (entrada=="octal"){
+            if(saida=="decimal"){
+                 document.getElementById("resultado").value = octalParaDecimal(input);
+             } else if(saida=="hexadecimal"){
+                 document.getElementById("resultado").value = octalParaHexa(input);
+             } else if(saida=="binario"){
+                 document.getElementById("resultado").value = octalParaBinario(input);
+             } 
+             else {
+                 document.getElementById("resultado").value = document.getElementById("valorEntrada").value;
+             }          
+         }
      }
 
-    function decimalParaBinario(){ 
-        var numero = document.getElementById("valorEntrada").value, binario = "";
+    function decimalParaBinario(numero){ 
+        var binario = "";
         if (numero==0){
             binario = "0";
         } else {
@@ -87,9 +109,7 @@
 
         return  binario.split('').reverse().join('');
     }
-    
-    function decimalParaHexadecimal(){
-        var valor = document.getElementById("valorEntrada").value; 
+    function decimalParaHexadecimal(valor){
         return hexadecimal(valor); 
 
         function hexadecimal(numero){
@@ -133,10 +153,9 @@
                 }
             }
         
-        }
-     
-    function decimalParaOctal(){
-        var valor = document.getElementById("valorEntrada").value, octal = "", divisao = 0, resto;
+    }
+    function decimalParaOctal(valor){
+        var octal = "", divisao = 0, resto;
         conversaoOctal(valor);
         
         function conversaoOctal(entrada){
@@ -151,9 +170,9 @@
         }
         return octal.split('').reverse().join('');
     }
-     
-    function binarioParaDecimal(){
-        var binario = document.getElementById("valorEntrada").value, numeroDecimal = 0;
+
+    function binarioParaDecimal(binario){
+        var numeroDecimal = 0;
         
         for(var i=0; i<binario.length; i++){
             if (binario.charAt(i) == "1"){
@@ -162,15 +181,46 @@
         }
         return numeroDecimal;
     } 
-     
-    function octalParaDecimal(){
-        var octal = document.getElementById("valorEntrada").value, numeroDecimal = 0;
+    function binarioParaHexadecimal(valor){ //Reúso
+        var conversao = binarioParaDecimal(valor);
+        return decimalParaHexadecimal(conversao);
+    }
+    function binarioParaOctal(valor){ //Reúso
+        var conversao = binarioParaDecimal(valor);
+        return decimalParaOctal(conversao);
+    }    
+
+    function hexadecimalParaDecimal(valor){ //Falta
+        //codigo
+        //mais
+
+    }
+    function hexadecimalParaBinario(valor){ //Reúso
+        var conversao = hexadecimalParaDecimal(valor);
+        return decimalParaBinario(conversao);
+
+    }
+    function hexadecimalParaOctal(valor){ //Reúso
+        var conversao = hexadecimalParaDecimal(valor);
+        return decimalParaOctal(conversao);
+
+    }
+
+    function octalParaDecimal(octal){
+        var numeroDecimal = 0;
         
         for(var i=0; i<octal.length; i++){
             numeroDecimal += octal.charAt(i) * Math.pow(8,(octal.length-1)-i);
         }
         return numeroDecimal;        
     } 
-     
+    function octalParaBinario(valor){ //Reúso
+        var conversao = octalParaDecimal(valor);
+        return decimalParaBinario(conversao);
+    }
+    function octalParaHexa(valor){ //Reúso
+        var conversao = octalParaDecimal(valor);
+        return decimalParaHexadecimal(conversao);
+    }   
      
  </script>
