@@ -191,9 +191,20 @@
     }    
 
     function hexadecimalParaDecimal(valor){ //Falta
-        //codigo
-        //mais
-
+        var vet = ["A", "B", "C", "D", "E", "F"], contVet = 0, numeroDecimal = "";
+        for(var i=0; i<valor.length; i++){
+            if (valor.charAt(i) == i){
+                numeroDecimal += Math.pow(16, (binario.length-1)-i);
+            } else {
+                for(j=10; j<vet.length; j++){
+                    if(i == j){
+                        numeroDecimal += vet[contVet];
+                    }
+                    contVet++;
+                }
+            }
+        }
+        return numeroDecimal;
     }
     function hexadecimalParaBinario(valor){ //Reúso
         var conversao = hexadecimalParaDecimal(valor);
