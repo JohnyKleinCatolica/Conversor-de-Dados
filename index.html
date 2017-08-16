@@ -191,18 +191,18 @@
     }    
 
     function hexadecimalParaDecimal(valor){ //Falta
-        var vet = ["A", "B", "C", "D", "E", "F"], contVet = 0, numeroDecimal = "";
-        for(var i=0; i<valor.length; i++){
-            if (valor.charAt(i) == i){
-                numeroDecimal += Math.pow(16, (binario.length-1)-i);
-            } else {
-                for(j=10; j<vet.length; j++){
-                    if(i == j){
-                        numeroDecimal += vet[contVet];
+        var vet = ["A", "B", "C", "D", "E", "F"], numeroDecimal = "", i = 0, j = 0, hexaDec = 10;
+        for(j=0; j<=vet.length; j++){
+                    if(vet[j] == valor){
+                        numeroDecimal += "" + hexaDec;
                     }
-                    contVet++;
-                }
-            }
+                    hexaDec++;
+        }
+    
+        for(i=0; i<valor; i++){
+            if (valor == i){
+                numeroDecimal += Math.pow(16, (binario.length-1)-i);
+            } 
         }
         return numeroDecimal;
     }
