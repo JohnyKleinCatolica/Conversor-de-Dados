@@ -190,18 +190,21 @@
         return decimalParaOctal(conversao);
     }    
 
-    function hexadecimalParaDecimal(valor){ //Falta
-        var vet = ["A", "B", "C", "D", "E", "F"], numeroDecimal = "", i = 0, j = 0, hexaDec = 10;
+    function hexadecimalParaDecimal(valorInteiro){ //Falta
+        var vet = ["a", "b", "c", "d", "e", "f"], numeroDecimal = "", i = 0, j = 0, hexaDec = 10, valor = 0;
         for(j=0; j<=vet.length; j++){
-                    if(vet[j] == valor){
+                    valor = valorInteiro.charAt(j);
+                    if(vet[j] == valor.toLowerCase()){
                         numeroDecimal += "" + hexaDec;
+                        j += 7;
                     }
                     hexaDec++;
         }
     
-        for(i=0; i<valor; i++){
+        for(i=0; i<valorInteiro.length; i++){
+            valor = valorInteiro.charAt(i);
             if (valor == i){
-                numeroDecimal += Math.pow(16, (binario.length-1)-i);
+                numeroDecimal += Math.pow(valor, (valorInteiro.length-1)-i);
             } 
         }
         return numeroDecimal;
