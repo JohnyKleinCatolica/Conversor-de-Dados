@@ -37,29 +37,31 @@
 
  <script>
      function escreveConversao(){
-         var entrada = document.getElementById("tipoEntrada");
-         var indice = entrada.options[entrada.selectedIndex].text;
+         var entrada = document.getElementById("tipoEntrada").value, saida = document.getElementById("tipoSaida").value;
+         var decimal;
          
-         if (indice=="Binário"){
-             
-         } else if (indice=="Hexadecimal"){
-             
-         } else if (indice=="Octal"){
-             
-         }
-         
-         var saida = document.getElementById("tipoSaida");
-         indice = saida.options[saida.selectedIndex].text;         
-         
-         if(indice=="Decimal"){
-             document.getElementById("resultado").value = document.getElementById("valorEntrada").value;
-         } else if (indice=="Binário"){
-             document.getElementById("resultado").value = decimalParaBinario();
-         } else if (indice=="Hexadecimal"){
-             document.getElementById("resultado").value = decimalParaHexadecimal();
-         } else { 
-             document.getElementById("resultado").value = decimalParaOctal();
-         }      
+         if (entrada=="decimal"){
+             if(saida=="binario"){
+                 document.getElementById("resultado").value = decimalParaBinario();
+             } else if(saida=="hexadecimal"){
+                 document.getElementById("resultado").value = decimalParaHexadecimal();
+             } else if(saida=="octal"){
+                 document.getElementById("resultado").value = decimalParaOctal();
+             } else {
+                 document.getElementById("resultado").value = document.getElementById("valorEntrada").value;
+             } 
+         } /*else if(entrada=="binario"){
+             if(saida=="decimal"){
+                 document.getElementById("resultado").value = binarioParaDecimal();
+             } else if(saida=="hexadecimal"){
+                 entrada =  binarioParaDecimal();
+                 document.getElementById("resultado").value = binarioParaDecimal();
+             } else if(saida=="octal"){
+                 document.getElementById("resultado").value = decimalParaOctal();
+             } else {
+                 document.getElementById("resultado").value = document.getElementById("valorEntrada").value;
+             }   
+         }*/
      }
 
     function decimalParaBinario(){ 
@@ -85,111 +87,54 @@
 
         return  binario.split('').reverse().join('');
     }
-     
+    
     function decimalParaHexadecimal(){
+        var valor = document.getElementById("valorEntrada").value; 
+        return hexadecimal(valor); 
 
-        var valor = document.getElementById("valorEntrada").value, hexadecimal = "", divisao = 0, entradaFull, resto, 
-            inicioIntervN = 0, fimIntervN = 10, vetChar = ['a','b','c','d','e','f'], intervaloChar = 0, contChar = 0;
-         ///hexa = 1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e,1f,20   
-        conversao(valor);
+        function hexadecimal(numero){
+            var divisao = Math.trunc(numero / 16), hexa = "", 
+                resto = Math.trunc(numero) - (Math.trunc(divisao * 16));
 
-       function conversao(entrada){
-            divisao = entrada/16, //entradaFull = entrada;
-            resto = entrada - (parseInt(divisao) * 16);
-           
-           if (entrada>0){
-                if(entrada>=inicioIntervN && entrada<fimIntervN){ //Decimal
-                    for(var i=inicioIntervN; i<fimIntervN; i++){
-                        if(i == valor){
-                            if(valor>9){
-                                hexadecimal += (i - intervaloChar);
-                            } else {
-                                hexadecimal += i;
-                            }
-                            i += fimIntervN;
-                        }
-                    }
-                } else  if(valor>=fimIntervN && valor<fimIntervN+6){ // Letras
-                    var j = 0;
-                    for(var i=fimIntervN; i<=(fimIntervN+6); i++){
-                        if(valor==i){
-                            if (contChar>0){
-                                hexadecimal += contChar;
-                            }
-                            hexadecimal += "" + vetChar[j];
-                            i += fimIntervN+7;
-                        }
-                        j++;
+           hexa = retornaLetra(Math.trunc(resto));
+
+           if (divisao > 16) {
+               hexa = decimalParaHexadecimal(Math.trunc(divisao)) + hexa;
+               return hexa;
+           } else {
+               if (numero>=10){
+                   return numero>15 ? Math.trunc(divisao) + "" + hexa : hexa;
+               } else {
+                   return numero;
+               }
+           }
+
+        }
+            function retornaLetra(numero) {
+                if (numero>=10 && numero<=15){
+                    switch (numero) {
+                    case 10:
+                        return 'A';
+                    case 11:
+                        return 'B';
+                    case 12:
+                        return 'C';
+                    case 13:
+                        return 'D';
+                    case 14:
+                        return 'E';
+                    case 15:
+                        return 'F';
+                    default:
+                        return "";
                     }
                 } else {
-                    intervaloChar += 6;
-                    contChar += 1;
-                    inicioIntervN += 16;
-                    fimIntervN += 16;
-                    conversao(parseInt(divisao));
+                    return numero;
                 }
-            }   
-               
-    }
-    return hexadecimal;//.split('').reverse().join('');
-}    
-         
-         /*   
-            if(!entrada>incioIntervL && !entrada<=fimIntervL){ //Dentro desse intervalo pega decimal
-                conversaoLetras(entrada);
-                entradaFull = entrada;
-                conversao(parseInt(divisao)); 
-            }  else {
-                conversaoNumeros(entrada);
             }
-        }
         
-        function conversaoLetras(valor){
-            var contLetra = 0;
-            for(c = incioIntervL; c<=fimIntervL; c++){
-                if(c == valor){
-                    hexadecimal += vetChar[contChar];
-                    c = fimIntervL + 1;
-                }
-                contChar++;
-                if (contChar>5){
-                    
-                    contChar = 0;
-                }
-            }
-            contChar = 0;                    
         }
-        
-        function conversaoNumeros(valor){
-            if(valor != 0){            
-                if(valor<=incioIntervL){
-                    for(var i=inicioIntervN; i<=fimIntervN; i++){
-                        if(i==valor){
-                            hexadecimal += i;
-                            i += fimIntervN;
-                        } else {
-                            inicioIntervN += 1;
-                            fimIntervN += 10;
-                        }
-                    }
-                }  else {
-                    incioIntervL += 6;
-                    fimIntervL += 10;
-                    conversao(valor);
-                }
-            }
-        }
-
-        //Ultimo valor divisao
-        if (entradaFull>=16){
-            conversaoLetras(entradaFull);
-        } else {
-            hexadecimal += entradaFull; 
-        }
-
-        return hexadecimal.split('').reverse().join('');   
-    }*/
-
+     
     function decimalParaOctal(){
         var valor = document.getElementById("valorEntrada").value, octal = "", divisao = 0, resto;
         conversaoOctal(valor);
