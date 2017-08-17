@@ -190,11 +190,12 @@
         return decimalParaOctal(conversao);
     }    
 
-    function hexadecimalParaDecimal(valor){ //Falta
-        var vet = ["a", "b", "c", "d", "e", "f"], numeroDecimal = "", j = 0, pos = 0; hexaDec = 10;
+    function hexadecimalParaDecimal(valor){ 
+        var vet = ["a", "b", "c", "d", "e", "f"], numeroDecimal = 0, vetDecimal = [valor.length-1], j = 0, k = 1,  pos = 0; hexaDec = 10,
+        decConversao = 0;
         
-        function seForChar(parteValor){
-            for(j=0; j<vet.length; j++){ //caso caracter
+        function seForChar(parteValor){ //caso caracter
+            for(j=0; j<vet.length; j++){ 
                 if(vet[j] == parteValor.toLowerCase()){
                     numeroDecimal += hexaDec;
                     j += 7;
@@ -204,15 +205,23 @@
             }            
         }
         
-        for(var i=0; i<valor.length; i++){
+        for(var i=0; i<valor.length; i++){ //caso decimal
             if(seForChar(valor.charAt(i))){
                 hexaDec = 10;
             } else {
-                numeroDecimal += valor.charAt(i);
+                numeroDecimal += parseInt(valor.charAt(i));
+                hexaDec = 10;
             }
-        }    
+            vetDecimal[i] = numeroDecimal;
+            numeroDecimal = 0;
+        }  
+
+        for(var i=0; i<vetDecimal.length; i++){ //conversao
+            decConversao +=  vetDecimal[i] * Math.pow(16, vetDecimal.length-k);
+            k++;
+        } 
         
-        return numeroDecimal;
+        return decConversao;
     }
     function hexadecimalParaBinario(valor){ //Reúso
         var conversao = hexadecimalParaDecimal(valor);
