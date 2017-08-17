@@ -1,6 +1,22 @@
+#logo{
+    height: 15%;
+}
+
+h1{
+    padding-top: 2%;
+    padding-left: 2%;
+}
+
 input[type=text] {
-    width: 100%;
     padding: 12px 20px;
+    width: 50%;
+    height: 20%;
     margin: 8px 0;
+    font-size: 130%;
     box-sizing: border-box;
+    
+}
+
+::-webkit-input-placeholder  { 
+    margin: 0px;
 }

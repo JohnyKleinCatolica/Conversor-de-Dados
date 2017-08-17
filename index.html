@@ -13,34 +13,46 @@
     
 <body>
 
-    <div class="container-fluid">   
-     
-        <div class="col-xs-offset-2 col-md-offset-4"><h1>Conversor de Valores</h1></div>
-
-        Tipo da Entrada: 
-        <select id="tipoEntrada">
-            <option value="decimal">Decimal</option>
-            <option value="binario">Binário</option>
-            <option value="hexadecimal">Hexadecimal</option>            
-            <option value="octal">Octal</option>   
-        </select>
-
-        <input type="text" id="valorEntrada" placeHolder="Valor de entrada"> 
-        <br/><br/>
-        <input type="submit" value="Enviar" onClick="escreveConversao();">
+<div class="container-fluid">   
+     <div class="row">
+        <div class="col-xs-9 col-xs-offset-4 col-md-1 col-md-offset-1"><img src="img/translateLogo.png" alt="Logo do site." id="logo"></div>
+        <div class="hidden-xs col-md-9"><h1>Conversor:</h1></div>
+     </div>   
         
-        <br/><br/>
-        
-        Tipo da Saída: 
-        <select id="tipoSaida">
+    <div class="row">    
+        <div class="col-xs-12 col-md-4 col-md-offset-2">
+            <b>De:</b> 
+            <select id="tipoEntrada">
                 <option value="decimal">Decimal</option>
                 <option value="binario">Binário</option>
                 <option value="hexadecimal">Hexadecimal</option>            
                 <option value="octal">Octal</option>   
             </select>
-        <input type="text" id="resultado" placeHolder="Resultado"> 
-    
-    </div>
+        </div>
+        
+        <div class="col-xs-12 col-md-4 col-md-offset-2">
+            <b>Para:</b>
+            <select id="tipoSaida">
+                    <option value="decimal">Decimal</option>
+                    <option value="binario">Binário</option>
+                    <option value="hexadecimal">Hexadecimal</option>            
+                    <option value="octal">Octal</option>   
+            </select>
+        </div>
+    </div>    
+        
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <input type="text" id="valorEntrada" placeHolder="Valor de entrada">             
+        </div>
+        <div class="col-md-4 col-md-offset-2">        
+            <input type="text" id="resultado" placeHolder="Resultado"> 
+        </div> 
+        <div class="col-md-10 col-md-offset-2">
+            <input type="submit" value="Converter" onClick="escreveConversao();">
+        </div>    
+    </div>    
+</div>
         
     <script src="js/jquery-3.2.1.min.js"> </script>
     <script src="js/bootstrap.min.js"> </script>
