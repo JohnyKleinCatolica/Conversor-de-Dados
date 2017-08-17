@@ -190,23 +190,28 @@
         return decimalParaOctal(conversao);
     }    
 
-    function hexadecimalParaDecimal(valorInteiro){ //Falta
-        var vet = ["a", "b", "c", "d", "e", "f"], numeroDecimal = "", i = 0, j = 0, hexaDec = 10, valor = 0;
-        for(j=0; j<=vet.length; j++){
-                    valor = valorInteiro.charAt(j);
-                    if(vet[j] == valor.toLowerCase()){
-                        numeroDecimal += "" + hexaDec;
-                        j += 7;
-                    }
-                    hexaDec++;
+    function hexadecimalParaDecimal(valor){ //Falta
+        var vet = ["a", "b", "c", "d", "e", "f"], numeroDecimal = "", j = 0, pos = 0; hexaDec = 10;
+        
+        function seForChar(parteValor){
+            for(j=0; j<vet.length; j++){ //caso caracter
+                if(vet[j] == parteValor.toLowerCase()){
+                    numeroDecimal += hexaDec;
+                    j += 7;
+                    return true;
+                }
+                hexaDec++;
+            }            
         }
-    
-        for(i=0; i<valorInteiro.length; i++){
-            valor = valorInteiro.charAt(i);
-            if (valor == i){
-                numeroDecimal += Math.pow(valor, (valorInteiro.length-1)-i);
-            } 
-        }
+        
+        for(var i=0; i<valor.length; i++){
+            if(seForChar(valor.charAt(i))){
+                hexaDec = 10;
+            } else {
+                numeroDecimal += valor.charAt(i);
+            }
+        }    
+        
         return numeroDecimal;
     }
     function hexadecimalParaBinario(valor){ //Reúso
